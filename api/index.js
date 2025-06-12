@@ -5,10 +5,11 @@ app.use(cors());
 app.use(express.json());
 
 app.get('/', (res, req) =>{
-    res.send({
+    const upMessage = {
         message: 'Welcome to the API',
-        status: 'OK'
-    });
+        status: 'success'
+    };
+    res.send(upMessage);
 });
 
 app.get('/getData/:id', (req, res) => {
