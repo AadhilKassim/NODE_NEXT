@@ -4,6 +4,10 @@ const app = express();
 app.use(cors());         
 app.use(express.json());
 
+app.get('/', (res, req) =>{
+    res.send(NULL);
+});
+
 app.get('/getData/:id', (req, res) => {
     const userData = {
         name: req.params.id,
