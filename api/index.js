@@ -5,7 +5,10 @@ app.use(cors());
 app.use(express.json());
 
 app.get('/', (res, req) =>{
-    res.send(NULL);
+    res.send({
+        message: 'Welcome to the API',
+        status: 'OK'
+    });
 });
 
 app.get('/getData/:id', (req, res) => {
