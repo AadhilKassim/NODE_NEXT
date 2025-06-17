@@ -7,6 +7,8 @@ const { default: userModel } = require('../MongoDB/mongoDB-model');
 const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
 const bcrypt = require('bcrypt');
+const jwt = require('jsonwebtoken');
+const jwtSecret = 'secret123'
 
 const app = express();
 app.use(cors());         
@@ -46,6 +48,14 @@ app.post('/signup', (req, res) => {
     const user = userModel({name, email, password: hashedpassword});
     user.save().then((UserInfo) => {
         console.log('User created successfully:', UserInfo);
+        jwt.sign(id = UserInfo._id, email = UserInfo.email, jwtSecret, (err, token) => {
+            if (err) {
+                console/log(err)
+                res.sendStatus(500);
+            }else {
+                res.cookie('token', token).send();
+            }
+        })
         res.send('')
     }).catch((err) => {
         console.error('Error creating user:', err);
