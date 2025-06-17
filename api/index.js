@@ -39,12 +39,18 @@ app.use(express.json());
 
 app.post('/signup', (req, res) => {
     const {name, email, password} = req.body;
+    if (!name || !email || !password) {
+        return res.status(400).send('Name, email, and password are required.');
+    }
     const hashedpassword = bcrypt.hashSync(password, 10);
     const user = userModel({name, email, password: hashedpassword});
     user.save().then((UserInfo) => {
         console.log('User created successfully:', UserInfo);
         res.send('')
-    })
+    }).catch((err) => {
+        console.error('Error creating user:', err);
+        res.status(500).send('Error creating user.');
+    });
 })
 
 
